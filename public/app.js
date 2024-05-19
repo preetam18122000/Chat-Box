@@ -23,6 +23,34 @@ sendMessageBtn.addEventListener('click', function() {
     message.value= "";
 })
 
+createRoomBtn.addEventListener('click', function(){
+    socket.emit("addRoom", roomInput.value);
+    const roomName = roomInput.value.trim();
+      if (roomName) {
+        const newRoomId = roomName.replace(/\s+/g, '').toLowerCase();
+
+        const newRoom = document.createElement('div');
+        newRoom.className = 'room_card';
+        newRoom.id = newRoomId;
+        newRoom.onclick = function() { changeRoom(newRoomId); };
+
+        const roomContent = `
+          <div class="room_item_content">
+            <div class="pic"></div>
+            <div class="roomInfo">
+              <span class="room_name">#${roomName}</span>
+              <span class="room_author"> Anonymous</span>
+            </div>
+          </div>
+        `;
+
+        newRoom.innerHTML = roomContent;
+        roomList.appendChild(newRoom);
+        
+        roomInput.value = '';
+      }
+})
+
 //We can .emit multiple times with the same name, like updateChat, but there will be only one .on against it
 socket.on("updateChat", function(username, data) {
     if(username === 'INFO'){

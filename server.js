@@ -53,6 +53,12 @@ io.on('connection', function(socket) {
         .emit("updateChat", "INFO", socket.username + " has joined ", room);
 
     })
+
+
+    socket.on("addRoom", function(room) {
+        rooms.push({ name: room, creator: "Anonymous" })
+    })
+    
 })
 
 server.listen(4000, ()=>{
