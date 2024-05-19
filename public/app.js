@@ -43,3 +43,12 @@ socket.on("updateChat", function(username, data) {
     }
     chatDisplay.scrollTop = chatDisplay.scrollHeight; //So that the chat is always scrolled up and latest msg is displayed
 })
+
+function changeRoom(room){
+    if(room != currentRoom){
+        socket.emit('updateRooms', room);
+        document.getElementById(currentRoom).classList.remove("active_item");
+        currentRoom = room;
+        document.getElementById(currentRoom).classList.add("active_item"); //changing current room selected
+    }
+}
