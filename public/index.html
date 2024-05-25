@@ -53,7 +53,7 @@
         <div class="right_sidebar">
           <span class="room_label">Rooms</span>
           <div id="active_rooms_list" class="active_rooms_list">
-            <div class="room_card active_item" id="globalChat" onclick="changeRoom('globalChat')">
+            <div class="room_card active_item" id="globalChat" onclick="changeRoom('globalChat'); updateRoomList();">
               <div class="room_item_content">
                 <div class="pic"></div>
                 <div class="roomInfo">
@@ -62,7 +62,7 @@
                 </div>
               </div>
             </div>
-            <div class="room_card" id="chess" onclick="changeRoom('chess')">
+            <div class="room_card" id="chess" onclick="changeRoom('chess'); updateRoomList();">
               <div class="room_item_content">
                 <div class="pic"></div>
                 <div class="roomInfo">
@@ -71,7 +71,7 @@
                 </div>
               </div>
             </div>
-            <div class="room_card" id="javascript" onclick="changeRoom('javascript')">
+            <div class="room_card" id="javascript" onclick="changeRoom('javascript'); updateRoomList();">
               <div class="room_item_content">
                 <div class="pic"></div>
                 <div class="roomInfo">

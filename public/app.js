@@ -32,7 +32,7 @@ createRoomBtn.addEventListener('click', function(){
         const newRoom = document.createElement('div');
         newRoom.className = 'room_card';
         newRoom.id = newRoomId;
-        newRoom.onclick = function() { changeRoom(newRoomId); };
+        newRoom.onclick = function() { changeRoom(newRoomId); updateRoomList(); };
 
         const roomContent = `
           <div class="room_item_content">
@@ -46,7 +46,7 @@ createRoomBtn.addEventListener('click', function(){
 
         newRoom.innerHTML = roomContent;
         roomList.appendChild(newRoom);
-        
+
         roomInput.value = '';
       }
 })
@@ -79,4 +79,37 @@ function changeRoom(room){
         currentRoom = room;
         document.getElementById(currentRoom).classList.add("active_item"); //changing current room selected
     }
+}
+
+
+function updateRoomList(){
+    console.log('call reveice');
+    socket.emit("getUpdatedRooms");
+    socket.on("receiveUpdatedRooms", function(data){
+        let tempRoomList = {};
+        for (let updatedRoom of data){
+            const roomName = updatedRoom.name;
+            const newRoomId = roomName.replace(/\s+/g, '').toLowerCase();
+
+            const newRoom = document.createElement('div');
+            newRoom.className = 'room_card';
+            newRoom.id = newRoomId;
+            newRoom.onclick = function() { changeRoom(newRoomId); };
+
+            const roomContent = `
+            <div class="room_item_content">
+                <div class="pic"></div>
+                <div class="roomInfo">
+                <span class="room_name">#${roomName}</span>
+                <span class="room_author"> Anonymous</span>
+                </div>
+            </div>
+            `;
+
+            newRoom.innerHTML = roomContent;
+            tempRoomList.appendChild(newRoom);
+        }
+        roomList = tempRoomList;
+
+    })
 }

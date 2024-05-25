@@ -58,6 +58,10 @@ io.on('connection', function(socket) {
     socket.on("addRoom", function(room) {
         rooms.push({ name: room, creator: "Anonymous" })
     })
+
+    socket.on("getUpdatedRooms", function(){
+        socket.emit("receiveUpdatedRooms", rooms);
+    })
     
 })
 
